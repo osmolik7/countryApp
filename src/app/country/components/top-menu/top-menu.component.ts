@@ -6,4 +6,6 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   imports: [RouterLink, RouterLinkActive],
   templateUrl: './top-menu.component.html',
 })
-export class TopMenuComponent { }
+export class TopMenuComponent {
+
+ }
