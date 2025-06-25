@@ -1,10 +1,16 @@
 <div class="flex flex-grow gap-2 mt-2">
     <input type="text" 
-    class="input input-bordered mr-2 w-56"
-    [placeholder]="placeholder()" 
-    autofocus
-    #txtSearch
-    (keyup.enter)="onSearch(txtSearch.value)">
-    <button class="btn btn-primary"
-    (click)="onSearch(txtSearch.value)">Buscar</button>
+        class="input input-bordered mr-2 w-56"
+        [placeholder]="placeholder()" 
+        autofocus
+        #txtSearch
+        (keyup.enter)="onSearch(txtSearch.value)"
+        (keyup)="inputValue.set(txtSearch.value)"
+    >
+
+    <button 
+        class="btn btn-primary"
+        (click)="onSearch(txtSearch.value)">
+        Buscar
+    </button>
 </div>
