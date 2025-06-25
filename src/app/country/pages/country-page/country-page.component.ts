@@ -1,18 +1,26 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { map } from 'rxjs';
+import { rxResource, toSignal } from '@angular/core/rxjs-interop';
+import { map, of } from 'rxjs';
+import { CountryService } from '../../services/country.service';
+import { NotFoundComponent } from "../../../shared/components/not-found/not-found.component";
+import { CountryInformationComponent } from "./country-information/country-information.component";
 
 @Component({
   selector: 'app-country-page',
-  imports: [],
+  imports: [NotFoundComponent, CountryInformationComponent],
   templateUrl: './country-page.component.html',
 })
 export class CountryPageComponent {
 
-  pais = toSignal(
-    inject(ActivatedRoute).params.pipe(
-      map( params => params['pais'] ?? 'noquery')
-    )
-  );
+  countryCode = inject(ActivatedRoute).snapshot.params['code'];
+  countryService = inject(CountryService);
+
+  countryResource = rxResource({
+    request : () => ({query: this.countryCode}),
+    loader: ({request}) => {
+      return this.countryService.searchCountryByAlphaCode(request.query)
+    }
+  });
+
  }

@@ -41,5 +41,17 @@ export class CountryService {
     )
   }
 
+  searchCountryByAlphaCode(code:string){
+
+    return this.http.get<RESTCountry[]>(`${API_URL}/alpha/${code}`)
+    .pipe(
+      map( (resp) => CountryMapper.mapRestCountryArrayToCountryArray(resp) ),
+      map( countries => countries.at(0)),
+      catchError(error => {
+        return throwError(() => new Error(`No se pudo obtener pais con el codigo: ${code}`))
+      })
+    )
+  }
+
 
 }
