@@ -43,7 +43,6 @@ export class CountryService {
     .pipe(
       map( (resp) => CountryMapper.mapRestCountryArrayToCountryArray(resp) ),
       tap( countries => this.queryCacheCountry.set(query, countries)),
-      delay(2000),
       catchError(error => {
         return throwError(() => new Error(`No se pudo obtener paises con el valor: ${query}`))
       })
@@ -58,7 +57,6 @@ export class CountryService {
     .pipe(
       map( (resp) => CountryMapper.mapRestCountryArrayToCountryArray(resp) ),
       tap( countries => this.regionCache.set(region, countries)),
-      delay(2000),
       catchError(error => {
         return throwError(() => new Error(`No se pudo obtener paises con el valor: ${region}`))
       })
